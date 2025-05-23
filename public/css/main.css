@@ -1,0 +1,332 @@
+/* Simple CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    line-height: 1.6;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+/* End of Reset */
+
+/* CSS Custom Properties (Variables) */
+:root {
+    --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --font-family-monospace: "Courier New", Courier, monospace;
+
+    --color-primary: #007bff; /* Blue */
+    --color-secondary: #6c757d; /* Gray */
+    --color-success: #28a745; /* Green */
+    --color-danger: #dc3545; /* Red */
+    --color-warning: #ffc107; /* Yellow */
+    --color-info: #17a2b8; /* Teal */
+
+    --color-text: #333;
+    --color-background: #f8f9fa;
+    --color-surface: #fff; /* For cards, form backgrounds etc. */
+    --color-border: #dee2e6;
+
+    --spacing-unit: 8px; /* Base unit for margins, paddings */
+}
+
+/* Global Element Styling */
+body {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0; /* Ensure no default margin */
+    padding: calc(var(--spacing-unit) * 2); /* Add some padding around the content */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: var(--spacing-unit);
+    color: var(--color-primary); /* Example: Primary color for main headings */
+    font-weight: 500; /* A bit lighter than default bold for a modern look */
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    filter: brightness(90%); /* Slightly darken on hover */
+}
+
+/* General Button Styling */
+button, .btn {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--color-surface); /* Text color for buttons, often white */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+button:hover, .btn:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 80%, black); /* Darken primary color */
+    border-color: color-mix(in srgb, var(--color-primary) 75%, black);
+    color: var(--color-surface); /* Ensure text color remains consistent on hover */
+}
+
+button:active, .btn:active {
+    background-color: color-mix(in srgb, var(--color-primary) 70%, black);
+    border-color: color-mix(in srgb, var(--color-primary) 65%, black);
+    color: var(--color-surface);
+}
+
+button:disabled, .btn:disabled {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* General Form Input Styling */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select { /* Added select for future use */
+    display: block;
+    width: 100%; /* Default to full width for easier form layout management */
+    padding: calc(var(--spacing-unit) * 0.75);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    background-clip: padding-box;
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    margin-bottom: var(--spacing-unit); /* Add some space below inputs */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: color-mix(in srgb, var(--color-primary) 80%, white); /* Lighter shade of primary */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-primary) 25%, transparent); /* Focus ring, Bootstrap like */
+}
+
+/* Authentication Page Specific Styles */
+.auth-container {
+    max-width: 450px;
+    margin: calc(var(--spacing-unit) * 4) auto; /* Centering with some top/bottom margin */
+    padding: calc(var(--spacing-unit) * 3);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.75);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.auth-container h2 { /* Target h2 specifically */
+    text-align: center;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.auth-container form label {
+    font-weight: bold;
+    display: block; /* Ensure labels take full width and inputs appear below */
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+    margin-bottom: calc(var(--spacing-unit) * 2); /* More space between inputs in auth forms */
+}
+
+.auth-container button[type="submit"] {
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 1.25); /* Make buttons a bit taller */
+    margin-top: var(--spacing-unit); /* Space above button if there are multiple form groups */
+    font-size: 1.1rem;
+}
+
+.message-feedback { /* Class for #messageArea */
+    margin-top: calc(var(--spacing-unit) * 2);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    padding: var(--spacing-unit);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    text-align: center;
+    min-height: calc(var(--spacing-unit) * 2.5); /* Ensure it has some height even when empty */
+    border-style: solid; /* Adding border style to make border visible */
+    border-width: 1px; /* Adding border width */
+}
+
+.message-success {
+    background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
+    color: color-mix(in srgb, var(--color-success) 80%, black); /* Darker green text for readability */
+    border-color: color-mix(in srgb, var(--color-success) 30%, transparent);
+}
+
+.message-error {
+    background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
+    color: color-mix(in srgb, var(--color-danger) 80%, black); /* Darker red text for readability */
+    border-color: color-mix(in srgb, var(--color-danger) 30%, transparent);
+}
+
+.auth-link { /* Class for the paragraph containing the login/register link */
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.auth-link a {
+    font-weight: 500;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    background-color: var(--color-primary);
+    padding: var(--spacing-unit) 0; /* Vertical padding */
+    color: var(--color-surface); /* Text color for navbar items */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    /* position: fixed; top: 0; left: 0; z-index: 1000; /* Uncomment for a sticky navbar */
+}
+
+.nav-container {
+    max-width: 960px; /* Or your preferred max width */
+    margin: 0 auto;
+    padding: 0 calc(var(--spacing-unit) * 2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold;
+    color: var(--color-surface);
+    text-decoration: none;
+}
+.nav-brand:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+.nav-links {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-left: calc(var(--spacing-unit) * 2);
+}
+.nav-item:first-child {
+    margin-left: 0; /* No margin for the first item if nav-links is right-aligned */
+}
+
+.nav-link {
+    color: var(--color-surface);
+    text-decoration: none;
+    padding: calc(var(--spacing-unit) * 0.5) 0; /* Optional padding */
+    transition: opacity 0.15s ease-in-out;
+}
+.nav-link:hover {
+    opacity: 0.8;
+    text-decoration: underline; /* Or other hover effect */
+}
+
+.nav-user-info {
+    color: var(--color-surface);
+    margin-right: calc(var(--spacing-unit) * 1.5);
+    /* Ensure it aligns well with other nav items if they have specific padding/margins */
+    display: flex; /* To align with other flex items in nav-links */
+    align-items: center; /* Vertical alignment */
+}
+
+#logoutButton {
+    cursor: pointer;
+}
+
+/* Page Layout & Content Section Styling */
+.page-container {
+    max-width: 960px; /* Or your preferred max width */
+    margin: calc(var(--spacing-unit) * 2) auto;
+    padding: calc(var(--spacing-unit) * 2);
+    /* background-color: var(--color-surface); Optional: if you want a card/panel look for the whole page content area */
+    /* border-radius: calc(var(--spacing-unit) * 0.5); Optional */
+    /* box-shadow: 0 1px 5px rgba(0,0,0,0.05); Optional subtle shadow */
+}
+
+.content-section {
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    padding: calc(var(--spacing-unit) * 2);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    background-color: var(--color-surface); /* If page-container is just for centering */
+}
+
+.content-section:last-child {
+    margin-bottom: 0;
+}
+
+.content-section h2 { /* Assuming sections have h2 titles */
+    margin-top: 0; /* Remove top margin if section has padding */
+    margin-bottom: calc(var(--spacing-unit) * 2); /* More space below section titles */
+}
+
+/* Listener Page Specifics */
+#activeStreamsList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#activeStreamsList li {
+    background-color: color-mix(in srgb, var(--color-background) 50%, var(--color-surface)); /* Slightly off-main background */
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    margin-bottom: var(--spacing-unit);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+#activeStreamsList li:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+    box-shadow: 0 0 5px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+/* Broadcaster Page Specifics */
+.user-info { /* For "Logged in as: Guest" */
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+}

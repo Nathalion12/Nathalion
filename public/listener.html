@@ -4,38 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beachouse - Watch a Stream</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 600px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { color: #007bff; }
-        input[type="text"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #ccc; cursor: not-allowed; }
-        #statusMessages { margin-top: 15px; padding: 10px; background-color: #e9ecef; border-radius: 4px; min-height: 20px; }
-        audio { margin-top: 15px; width: 100%; }
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Inline styles removed -->
 </head>
 <body>
-    <div class="container">
-        <h1>Active Streams</h1>
-        <button id="refreshStreamsButton">Refresh List</button>
-        <ul id="activeStreamsList">
-            <li>Loading active streams...</li>
-        </ul>
-        <hr>
-        <h2>Join a Live Stream by ID</h2>
-        
-        <label for="streamIdInput">Stream ID:</label>
-        <input type="text" id="streamIdInput" placeholder="Enter Stream ID">
-        
-        <button id="joinStreamButton" disabled>Join Stream</button>
-        
-        <div id="statusMessages">Connecting to server...</div>
-        
-        <audio id="audioPlayback" controls></audio>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="listener.html" class="nav-brand">Beachouse</a>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="listener.html" class="nav-link">Listen</a></li>
+                <li class="nav-item"><a href="broadcaster.html" class="nav-link">Go Live</a></li>
+                <li class="nav-item auth-link-login"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item auth-link-register"><a href="register.html" class="nav-link">Register</a></li>
+                <!-- Logout link and user info will be added dynamically later -->
+            </ul>
+        </div>
+    </nav>
+    <div class="page-container">
+        <div class="content-section">
+            <h2>Active Streams</h2>
+            <button id="refreshStreamsButton" class="btn" style="margin-bottom: var(--spacing-unit);">Refresh List</button>
+            <ul id="activeStreamsList">
+                <li>Loading active streams...</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Join a Live Stream by ID</h2>
+            <div> <!-- Added div for better label-input grouping if needed -->
+                <label for="streamIdInput">Stream ID:</label>
+                <input type="text" id="streamIdInput" placeholder="Enter Stream ID">
+            </div>
+            <button id="joinStreamButton" class="btn" disabled>Join Stream</button>
+        </div>
+
+        <div class="content-section">
+            <h2>Playback</h2>
+            <div id="statusMessages" class="message-feedback">Connecting to server...</div>
+            <audio id="audioPlayback" controls style="margin-top: var(--spacing-unit); width: 100%;"></audio>
+        </div>
     </div>
 
     <script src="listener.js"></script>
+    <script src="/js/nav.js" defer></script>
 </body>
 </html>
