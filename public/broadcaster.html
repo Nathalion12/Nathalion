@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beachouse - Go Live</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 600px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #007bff; }
+        input[type="text"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        #statusMessages { margin-top: 15px; padding: 10px; background-color: #e9ecef; border-radius: 4px; min-height: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start Your Live Broadcast</h1>
+        
+        <label for="streamName">Stream Name (Optional):</label>
+        <input type="text" id="streamName" placeholder="My Awesome Stream">
+        
+        <button id="goLiveButton">Go Live</button>
+        
+        <div id="statusMessages">Not connected.</div>
+    </div>
+
+    <script src="broadcaster.js"></script>
+</body>
+</html>
