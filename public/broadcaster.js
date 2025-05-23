@@ -23,11 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
         socket = new WebSocket(wsProtocol + window.location.host);
 
-        goLiveButton.disabled = true; // Disable button until connection is open
+        goLiveButton.disabled = true; // Disable button until connection and authentication are successful
 
         socket.onopen = () => {
-            updateStatus('Connected to server.');
-            goLiveButton.disabled = false; // Enable button
+            updateStatus('Connected to server. Authenticating...');
+            const token = localStorage.getItem('beachouse_token');
+            if (token) {
+                socket.send(JSON.stringify({ type: 'auth', token: token }));
+            } else {
+                updateStatus("Authentication token not found. Please login.", true);
+                // Optionally redirect to login page or show a more prominent error
+                // window.location.href = 'login.html';
+                goLiveButton.disabled = true; // Keep disabled
+            }
         };
 
         socket.onmessage = (event) => {
@@ -47,16 +55,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             console.log('Server message:', parsedMessage);
-            if (parsedMessage.type === 'streamStarted') {
+
+            if (parsedMessage.type === 'authSuccess') {
+                updateStatus(`Authenticated as ${parsedMessage.user.username}. Ready to go live.`);
+                goLiveButton.disabled = false; // Enable Go Live button after successful auth
+                
+                // Display logged-in username
+                const usernameDisplay = document.getElementById('loggedInUsername');
+                if (usernameDisplay) {
+                    usernameDisplay.textContent = parsedMessage.user.username;
+                }
+                // Store/update user info in localStorage for persistence across page loads (optional)
+                localStorage.setItem('beachouse_user', JSON.stringify(parsedMessage.user));
+
+            } else if (parsedMessage.type === 'authFailure') {
+                updateStatus(`Authentication failed: ${parsedMessage.message}. Please login again.`, true);
+                goLiveButton.disabled = true; // Keep Go Live button disabled
+                const usernameDisplay = document.getElementById('loggedInUsername');
+                if (usernameDisplay) {
+                    usernameDisplay.textContent = 'Guest'; // Reset to guest
+                }
+                // Optionally redirect to login page
+                // setTimeout(() => { window.location.href = 'login.html'; }, 3000);
+            } else if (parsedMessage.type === 'streamStarted') {
                 currentStreamId = parsedMessage.streamId;
-                updateStatus(`Stream started! ID: ${parsedMessage.streamId}. Name: "${parsedMessage.streamName}". Waiting for listeners...`);
-                // At this point, the server has confirmed the stream, now start sending audio
+                updateStatus(`Stream started by ${parsedMessage.broadcasterUsername}! ID: ${parsedMessage.streamId}. Name: "${parsedMessage.streamName}". Waiting for listeners...`);
                 startMediaRecorder();
             } else if (parsedMessage.type === 'error') {
                 updateStatus(`Server error: ${parsedMessage.message}`, true);
-                stopBroadcasting(); // Stop broadcasting if server reports an error related to stream
+                if (parsedMessage.message === 'Please authenticate first.') {
+                     goLiveButton.disabled = true;
+                } else {
+                    stopBroadcasting(); // Stop broadcasting if server reports other errors
+                }
             } else if (parsedMessage.type === 'info') {
-                updateStatus(`Info: ${parsedMessage.message}`);
+                // Avoid overwriting critical auth messages if an info message arrives early
+                if (statusMessages.textContent.includes('Authenticating...') || statusMessages.textContent.includes('Connected to server')) {
+                     updateStatus(`Info: ${parsedMessage.message}`);
+                } else if (!statusMessages.textContent.includes('failed') && !statusMessages.textContent.includes('Authenticated as')) {
+                    updateStatus(`Info: ${parsedMessage.message}`);
+                }
             } else {
                 console.log('Received unhandled message type from server:', parsedMessage.type);
             }
@@ -79,6 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function startMediaRecorder() {
         if (!localStream || !socket || socket.readyState !== WebSocket.OPEN) {
             updateStatus('Cannot start media recorder: local stream or socket not ready.', true);
+            return;
+        }
+        if (goLiveButton.disabled) { // Check if button is disabled (which implies not authenticated)
+            updateStatus('Cannot start stream: Not authenticated or authentication failed.', true);
             return;
         }
         
@@ -173,8 +215,23 @@ document.addEventListener('DOMContentLoaded', () => {
             connectWebSocket(); // Attempt to reconnect if not connected
             return;
         }
+        
+        // Check if the button is disabled (which means not authenticated or some other error)
+        if (goLiveButton.disabled) {
+            updateStatus('Cannot go live. Ensure you are connected and authenticated.', true);
+            // Attempt to re-authenticate if socket is open but button is disabled
+            if (socket.readyState === WebSocket.OPEN) {
+                const token = localStorage.getItem('beachouse_token');
+                if (token) {
+                    socket.send(JSON.stringify({ type: 'auth', token: token }));
+                } else {
+                    updateStatus("Authentication token not found. Please login.", true);
+                }
+            }
+            return;
+        }
 
-        goLiveButton.disabled = true;
+        goLiveButton.disabled = true; // Temporarily disable while setting up stream
         updateStatus('Requesting microphone access...');
 
         navigator.mediaDevices.getUserMedia({ audio: true, video: false })
@@ -197,4 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial connection attempt
     connectWebSocket();
+
+    // Attempt to display username on page load if already logged in
+    const storedUser = localStorage.getItem('beachouse_user');
+    if (storedUser) {
+        try {
+            const user = JSON.parse(storedUser);
+            const usernameDisplay = document.getElementById('loggedInUsername');
+            if (usernameDisplay && user && user.username) {
+                usernameDisplay.textContent = user.username;
+            }
+        } catch (e) {
+            console.error("Error parsing stored user data:", e);
+            localStorage.removeItem('beachouse_user'); // Clear corrupted data
+        }
+    }
 });

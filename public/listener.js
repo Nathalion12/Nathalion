@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 streams.forEach(stream => {
                     const li = document.createElement('li');
-                    li.textContent = `${stream.streamName} (ID: ${stream.streamId})`;
+                    li.textContent = `${stream.streamName} by ${stream.broadcasterUsername || 'Unknown User'} (ID: ${stream.streamId})`;
                     li.style.cursor = 'pointer';
                     li.style.padding = '5px 0'; // Add some padding for easier clicking
                     li.style.borderBottom = '1px solid #eee'; // Separator
