@@ -20,22 +20,47 @@ input, button, textarea, select {
 }
 /* End of Reset */
 
-/* CSS Custom Properties (Variables) */
+/* CSS Custom Properties (Variables) - Dark Theme */
 :root {
     --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     --font-family-monospace: "Courier New", Courier, monospace;
 
-    --color-primary: #007bff; /* Blue */
-    --color-secondary: #6c757d; /* Gray */
-    --color-success: #28a745; /* Green */
-    --color-danger: #dc3545; /* Red */
-    --color-warning: #ffc107; /* Yellow */
-    --color-info: #17a2b8; /* Teal */
+    /* Dark Theme Palette */
+    --color-primary: #0d6efd; /* Bootstrap Blue - vibrant for primary actions */
+    --color-primary-hover: #0b5ed7; /* Darker blue for hover */
+    --color-primary-active: #0a58ca; /* Even darker for active */
+    --color-primary-text: #ffffff;
 
-    --color-text: #333;
-    --color-background: #f8f9fa;
-    --color-surface: #fff; /* For cards, form backgrounds etc. */
-    --color-border: #dee2e6;
+    --color-secondary: #6c757d; /* Standard Gray */
+    --color-secondary-hover: #5c636a;
+    --color-secondary-active: #565e64;
+    --color-secondary-text: #ffffff;
+
+    --color-success: #198754; /* Bootstrap Green */
+    --color-success-text: #ffffff;
+    --color-danger: #dc3545; /* Bootstrap Red */
+    --color-danger-hover: #bb2d3b;
+    --color-danger-active: #b02a37;
+    --color-danger-text: #ffffff;
+
+    --color-warning: #ffc107; /* Bootstrap Yellow */
+    --color-warning-hover: #ffca2c;
+    --color-warning-text: #000;
+
+    --color-info: #0dcaf0;   /* Bootstrap Cyan/Info */
+    --color-info-hover: #31d2f2;
+    --color-info-text: #000;
+
+    --color-text: #e0e0e0; /* Light gray for general text */
+    --color-text-secondary: #adb5bd; /* Medium gray for less important text, placeholder */
+    --color-background: #121212; /* Very dark gray, almost black */
+    --color-surface: #1e1e1e; /* Dark gray, for cards, inputs, sections */
+    --color-surface-light: #2a2a2a; /* Slightly lighter surface for hover or accents */
+    --color-border: #343a40; /* Darker gray for borders */
+    --color-border-light: #495057; /* Lighter border for focus or active states */
+
+    --shadow-color: rgba(0,0,0,0.5); /* Darker shadow for dark theme */
+    --focus-ring-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
 
     --spacing-unit: 8px; /* Base unit for margins, paddings */
 }
@@ -45,14 +70,14 @@ body {
     font-family: var(--font-family-sans);
     background-color: var(--color-background);
     color: var(--color-text);
-    margin: 0; /* Ensure no default margin */
-    padding: calc(var(--spacing-unit) * 2); /* Add some padding around the content */
+    margin: 0; 
+    padding: calc(var(--spacing-unit) * 2); 
 }
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: var(--spacing-unit);
-    color: var(--color-primary); /* Example: Primary color for main headings */
-    font-weight: 500; /* A bit lighter than default bold for a modern look */
+    color: var(--color-primary); 
+    font-weight: 500; 
 }
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
@@ -66,19 +91,19 @@ p {
 }
 
 a {
-    color: var(--color-primary);
+    color: var(--color-info); 
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
-    filter: brightness(90%); /* Slightly darken on hover */
+    color: var(--color-info-hover);
 }
 
 /* General Button Styling */
 button, .btn {
     display: inline-block;
     font-weight: 400;
-    color: var(--color-surface); /* Text color for buttons, often white */
+    color: var(--color-primary-text); 
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -93,32 +118,63 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-    background-color: color-mix(in srgb, var(--color-primary) 80%, black); /* Darken primary color */
-    border-color: color-mix(in srgb, var(--color-primary) 75%, black);
-    color: var(--color-surface); /* Ensure text color remains consistent on hover */
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-primary-text);
 }
 
 button:active, .btn:active {
-    background-color: color-mix(in srgb, var(--color-primary) 70%, black);
-    border-color: color-mix(in srgb, var(--color-primary) 65%, black);
-    color: var(--color-surface);
+    background-color: var(--color-primary-active);
+    border-color: var(--color-primary-active);
+    color: var(--color-primary-text);
 }
 
 button:disabled, .btn:disabled {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
-    opacity: 0.65;
+    color: var(--color-secondary-text);
+    opacity: 0.5; 
     cursor: not-allowed;
 }
+
+/* Specific button variants */
+.btn-secondary {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary-text);
+}
+.btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+    border-color: var(--color-secondary-hover);
+}
+.btn-secondary:active {
+    background-color: var(--color-secondary-active);
+    border-color: var(--color-secondary-active);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    color: var(--color-danger-text);
+}
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+.btn-danger:active {
+    background-color: var(--color-danger-active);
+    border-color: var(--color-danger-active);
+}
+
 
 /* General Form Input Styling */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 textarea,
-select { /* Added select for future use */
+select { 
     display: block;
-    width: 100%; /* Default to full width for easier form layout management */
+    width: 100%; 
     padding: calc(var(--spacing-unit) * 0.75);
     font-size: 1rem;
     line-height: 1.5;
@@ -128,128 +184,138 @@ select { /* Added select for future use */
     border: 1px solid var(--color-border);
     border-radius: calc(var(--spacing-unit) * 0.5);
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    margin-bottom: var(--spacing-unit); /* Add some space below inputs */
+    margin-bottom: var(--spacing-unit); 
 }
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+}
+
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-    border-color: color-mix(in srgb, var(--color-primary) 80%, white); /* Lighter shade of primary */
+    border-color: var(--color-primary); 
     outline: 0;
-    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-primary) 25%, transparent); /* Focus ring, Bootstrap like */
+    box-shadow: 0 0 0 0.2rem var(--focus-ring-color); 
 }
 
 /* Authentication Page Specific Styles */
 .auth-container {
     max-width: 450px;
-    margin: calc(var(--spacing-unit) * 4) auto; /* Centering with some top/bottom margin */
+    margin: calc(var(--spacing-unit) * 4) auto; 
     padding: calc(var(--spacing-unit) * 3);
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: calc(var(--spacing-unit) * 0.75);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px var(--shadow-color);
 }
 
-.auth-container h2 { /* Target h2 specifically */
+.auth-container h2 { 
     text-align: center;
     margin-bottom: calc(var(--spacing-unit) * 2);
+    color: var(--color-primary); 
 }
 
 .auth-container form label {
     font-weight: bold;
-    display: block; /* Ensure labels take full width and inputs appear below */
+    display: block; 
     margin-bottom: calc(var(--spacing-unit) * 0.5);
+    color: var(--color-text); 
 }
 
 .auth-container input[type="text"],
 .auth-container input[type="email"],
 .auth-container input[type="password"] {
-    margin-bottom: calc(var(--spacing-unit) * 2); /* More space between inputs in auth forms */
+    margin-bottom: calc(var(--spacing-unit) * 2); 
 }
 
 .auth-container button[type="submit"] {
     width: 100%;
-    padding: calc(var(--spacing-unit) * 1.25); /* Make buttons a bit taller */
-    margin-top: var(--spacing-unit); /* Space above button if there are multiple form groups */
+    padding: calc(var(--spacing-unit) * 1.25); 
+    margin-top: var(--spacing-unit); 
     font-size: 1.1rem;
 }
 
-.message-feedback { /* Class for #messageArea */
+.message-feedback { 
     margin-top: calc(var(--spacing-unit) * 2);
     margin-bottom: calc(var(--spacing-unit) * 2);
     padding: var(--spacing-unit);
     border-radius: calc(var(--spacing-unit) * 0.5);
     text-align: center;
-    min-height: calc(var(--spacing-unit) * 2.5); /* Ensure it has some height even when empty */
-    border-style: solid; /* Adding border style to make border visible */
-    border-width: 1px; /* Adding border width */
+    min-height: calc(var(--spacing-unit) * 2.5); 
+    border-style: solid; 
+    border-width: 1px; 
 }
 
 .message-success {
-    background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
-    color: color-mix(in srgb, var(--color-success) 80%, black); /* Darker green text for readability */
-    border-color: color-mix(in srgb, var(--color-success) 30%, transparent);
+    background-color: color-mix(in srgb, var(--color-success) 20%, var(--color-surface));
+    color: var(--color-success); 
+    border-color: var(--color-success);
 }
 
 .message-error {
-    background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
-    color: color-mix(in srgb, var(--color-danger) 80%, black); /* Darker red text for readability */
-    border-color: color-mix(in srgb, var(--color-danger) 30%, transparent);
+    background-color: color-mix(in srgb, var(--color-danger) 20%, var(--color-surface));
+    color: var(--color-danger); 
+    border-color: var(--color-danger);
 }
 
-.auth-link { /* Class for the paragraph containing the login/register link */
+.auth-link { 
     text-align: center;
     margin-top: calc(var(--spacing-unit) * 2);
 }
 
 .auth-link a {
     font-weight: 500;
+    color: var(--color-info); 
 }
 
 /* Chat Interface Styling */
 .chat-messages-area {
-    height: 250px; /* Updated height */
+    height: 250px; 
     overflow-y: auto;
     border: 1px solid var(--color-border);
     padding: var(--spacing-unit);
     margin-bottom: var(--spacing-unit);
-    background-color: color-mix(in srgb, var(--color-background) 70%, var(--color-surface)); 
+    background-color: var(--color-background); 
     border-radius: calc(var(--spacing-unit) * 0.5);
 }
 
 .chat-message {
     margin-bottom: calc(var(--spacing-unit) * 0.75);
-    padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit); /* Updated padding */
+    padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit); 
     border-radius: calc(var(--spacing-unit) * 0.5);
-    background-color: var(--color-surface);
-    overflow-wrap: break-word; /* Added */
+    background-color: var(--color-surface); 
+    overflow-wrap: break-word; 
     line-height: 1.4;
+    color: var(--color-text); 
 }
 
 .chat-message .username {
     font-weight: bold;
-    color: var(--color-primary); 
-    /* margin-right for username can be optional if spacing is handled by timestamp's margin-left or general layout */
+    color: var(--color-info); 
 }
 
 .chat-message .timestamp {
-    font-size: 0.8em; /* Updated font-size */
-    color: var(--color-secondary);
-    margin-left: var(--spacing-unit); /* Updated margin-left */
+    font-size: 0.8em; 
+    color: var(--color-text-secondary); 
+    margin-left: var(--spacing-unit); 
 }
 
 .chat-message .text {
-    /* Main text styling if needed */
+    color: var(--color-text);
 }
 
 .chat-message.own-message {
-    background-color: color-mix(in srgb, var(--color-info) 20%, var(--color-surface)); /* Light info color */
-    /* border-color: var(--color-info); /* Optional: if messages have borders and want to change it */
+    background-color: color-mix(in srgb, var(--color-primary) 20%, var(--color-surface)); 
 }
 .chat-message.own-message .username {
-    color: var(--color-info); /* Match accent for own messages */
+    color: var(--color-primary); 
 }
 
 .chat-input-form {
@@ -259,47 +325,45 @@ select:focus {
 
 .chat-input-form input[type="text"] {
     flex-grow: 1;
-    margin-bottom: 0; /* Override global input margin if inside flex */
+    margin-bottom: 0; 
 }
 
 .chat-input-form button {
     flex-shrink: 0;
-    /* width: auto; /* Ensure it doesn't take full width from auth form styles if .btn is too general */
 }
 
 /* Live Indicator Styling */
 .live-indicator {
-    display: inline-block; /* Initially hidden by inline style, JS will change to inline-block */
-    background-color: var(--color-danger); /* Red for LIVE */
-    color: white;
+    display: inline-block; 
+    background-color: var(--color-danger); 
+    color: var(--color-danger-text);
     padding: calc(var(--spacing-unit) * 0.25) calc(var(--spacing-unit) * 1);
     font-size: 0.8rem;
     font-weight: bold;
     border-radius: calc(var(--spacing-unit) * 0.5);
-    margin-left: var(--spacing-unit); /* Space it from other elements */
-    vertical-align: middle; /* Align with buttons/text */
-    /* Optional: Subtle pulsing animation */
+    margin-left: var(--spacing-unit); 
+    vertical-align: middle; 
     animation: pulse 1.5s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.6; }
-    100% { opacity: 1; }
+    0% { opacity: 1; box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-danger) 50%, transparent); }
+    50% { opacity: 0.7; box-shadow: 0 0 3px 3px color-mix(in srgb, var(--color-danger) 20%, transparent); }
+    100% { opacity: 1; box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-danger) 50%, transparent); }
 }
 
 /* Navigation Bar Styling */
 .navbar {
-    background-color: var(--color-primary);
-    padding: var(--spacing-unit) 0; /* Vertical padding */
-    color: var(--color-surface); /* Text color for navbar items */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--color-surface); 
+    padding: var(--spacing-unit) 0; 
+    color: var(--color-text); 
+    box-shadow: 0 2px 4px var(--shadow-color);
     width: 100%;
-    /* position: fixed; top: 0; left: 0; z-index: 1000; /* Uncomment for a sticky navbar */
+    border-bottom: 1px solid var(--color-border);
 }
 
 .nav-container {
-    max-width: 960px; /* Or your preferred max width */
+    max-width: 960px; 
     margin: 0 auto;
     padding: 0 calc(var(--spacing-unit) * 2);
     display: flex;
@@ -308,14 +372,14 @@ select:focus {
 }
 
 .nav-brand {
-    font-size: 1.5rem; /* Larger font size */
+    font-size: 1.5rem; 
     font-weight: bold;
-    color: var(--color-surface);
+    color: var(--color-primary); 
     text-decoration: none;
 }
 .nav-brand:hover {
     text-decoration: none;
-    opacity: 0.9;
+    color: var(--color-primary-hover);
 }
 
 .nav-links {
@@ -330,126 +394,126 @@ select:focus {
     margin-left: calc(var(--spacing-unit) * 2);
 }
 .nav-item:first-child {
-    margin-left: 0; /* No margin for the first item if nav-links is right-aligned */
+    margin-left: 0; 
 }
 
 .nav-link {
-    color: var(--color-surface);
+    color: var(--color-text); 
     text-decoration: none;
-    padding: calc(var(--spacing-unit) * 0.5) 0; /* Optional padding */
-    transition: opacity 0.15s ease-in-out;
+    padding: calc(var(--spacing-unit) * 0.5) 0; 
+    transition: color 0.15s ease-in-out;
 }
 .nav-link:hover {
-    opacity: 0.8;
-    text-decoration: underline; /* Or other hover effect */
+    color: var(--color-info); 
+    text-decoration: underline; 
+}
+.nav-link.active { 
+    color: var(--color-primary);
+    font-weight: 500;
 }
 
+
 .nav-user-info {
-    color: var(--color-surface);
+    color: var(--color-text-secondary);
     margin-right: calc(var(--spacing-unit) * 1.5);
-    /* Ensure it aligns well with other nav items if they have specific padding/margins */
-    display: flex; /* To align with other flex items in nav-links */
-    align-items: center; /* Vertical alignment */
+    display: flex; 
+    align-items: center; 
 }
 
 #logoutButton {
     cursor: pointer;
+    color: var(--color-info);
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
 }
+#logoutButton:hover {
+    color: var(--color-danger);
+    text-decoration: underline;
+}
+
 
 /* Responsive Navigation Bar */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
-        align-items: flex-start; /* Align items to the start */
+        align-items: flex-start; 
     }
 
     .nav-brand {
-        margin-bottom: var(--spacing-unit); /* Space between brand and links when stacked */
-        /* If nav-brand itself contains an image or logo, ensure its size is appropriate */
+        margin-bottom: var(--spacing-unit); 
     }
 
     .nav-links {
         flex-direction: column;
-        align-items: flex-start; /* Align links to the start of the container */
-        width: 100%; /* Ensure nav-links take full width */
+        align-items: flex-start; 
+        width: 100%; 
     }
 
     .nav-item {
-        margin-left: 0; /* Reset horizontal margin from desktop view */
-        margin-bottom: calc(var(--spacing-unit) * 0.5); /* Vertical spacing between stacked items */
-        width: 100%; /* Make nav-items take full width for consistent look */
+        margin-left: 0; 
+        margin-bottom: calc(var(--spacing-unit) * 0.5); 
+        width: 100%; 
     }
 
     .nav-link {
-        display: block; /* Make the link area fill the nav-item for easier tapping */
-        padding-top: calc(var(--spacing-unit) * 0.5); /* Adjust padding for vertical layout */
+        display: block; 
+        padding-top: calc(var(--spacing-unit) * 0.5); 
         padding-bottom: calc(var(--spacing-unit) * 0.5);
-        /* text-align: center; /* Optional: if you prefer centered text in the stacked links */
     }
 
-    /* Adjust user info and logout button stacking if they are direct children of .nav-links */
-    .nav-user-info { /* If it's a .nav-item this is covered, if separate, style similarly */
-        margin-right: 0; /* Reset right margin */
-        margin-bottom: calc(var(--spacing-unit) * 0.5); /* Space below user info */
-        width: 100%; /* Optional: if it should take full width like other nav items */
-        /* text-align: left; /* Or center, if nav-link text is centered */
+    .nav-user-info { 
+        margin-right: 0; 
+        margin-bottom: calc(var(--spacing-unit) * 0.5); 
+        width: 100%; 
     }
-
-    /* If logoutButton is inside a .nav-item, it's covered. If standalone and needs full width: */
-    /*
-    #logoutButton.nav-link { // Assuming it also has .nav-link class
-        width: 100%;
-        text-align: center; // Or left
-    }
-    */
 }
 
 /* Responsive Auth Container for smaller screens */
 @media (max-width: 576px) {
     .auth-container {
-        width: 90%; /* Allow it to use more of the screen width */
+        width: 90%; 
         margin-top: calc(var(--spacing-unit) * 2);
         margin-bottom: calc(var(--spacing-unit) * 2);
-        padding: calc(var(--spacing-unit) * 2); /* Slightly reduce padding */
-        box-shadow: none; /* Optional: remove shadow on very small screens for simplicity */
+        padding: calc(var(--spacing-unit) * 2); 
+        box-shadow: none; 
     }
 
-    /* Optional: Adjust heading size within auth forms on small screens */
     .auth-container h2 {
-        font-size: 1.5rem; /* Slightly smaller heading */
+        font-size: 1.5rem; 
     }
 }
 
 /* Profile Page Specific Styling */
 .profile-info p {
     margin-bottom: var(--spacing-unit);
-    font-size: 1.1rem; /* Slightly larger text for profile details */
+    font-size: 1.1rem; 
 }
 .profile-info p strong {
-    color: var(--color-primary); /* Or other distinct color */
-    min-width: 120px; /* Example: align keys for better readability */
+    color: var(--color-primary); 
+    min-width: 120px; 
     display: inline-block;
 }
 
 /* Stream Cards Layout and Styling */
-#activeStreamsList.stream-cards-grid { /* Target the div specifically */
+#activeStreamsList.stream-cards-grid { 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive columns */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
     gap: calc(var(--spacing-unit) * 2);
-    padding-left: 0; /* Remove default padding if it was a ul */
-    list-style: none; /* Remove default list style if it was a ul */
-    margin-top: var(--spacing-unit); /* Add some space above the cards grid */
+    padding-left: 0; 
+    list-style: none; 
+    margin-top: var(--spacing-unit); 
 }
 
-/* Clear any previous li styling if #activeStreamsList was a ul */
-#activeStreamsList > li {
+#activeStreamsList > li { /* This is for old list style, not used with stream-cards-grid */
     padding: 0;
     margin: 0;
     border: none;
     background: none;
     cursor: default;
 }
-#activeStreamsList > li:hover {
+#activeStreamsList > li:hover { /* This is for old list style, not used with stream-cards-grid */
     background: none;
     box-shadow: none;
     border-color: transparent;
@@ -461,79 +525,53 @@ select:focus {
     border: 1px solid var(--color-border);
     border-radius: calc(var(--spacing-unit) * 0.5);
     padding: calc(var(--spacing-unit) * 2);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px var(--shadow-color);
     cursor: pointer;
-    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
-    display: flex; /* For internal layout of card content */
+    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: flex; 
     flex-direction: column;
-    /* justify-content: space-between; /* Uncomment if you add elements like a button at the bottom */
-    min-height: 120px; /* Give cards a minimum height */
+    min-height: 120px; 
 }
 
 .stream-card:hover {
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 8px var(--shadow-color);
     transform: translateY(-2px);
+    border-color: var(--color-border-light);
 }
 
 .stream-card-name {
     font-size: 1.25rem;
     color: var(--color-primary);
     margin-bottom: var(--spacing-unit);
-    font-weight: 500; /* Consistent with other h tags */
+    font-weight: 500; 
 }
 
 .stream-card-broadcaster {
     font-size: 0.9rem;
-    color: var(--color-secondary);
-    margin-bottom: 0; /* Remove margin if it's the last item, or adjust if more content below */
+    color: var(--color-text-secondary);
+    margin-bottom: 0; 
 }
 
-/* If you add a button inside cards later */
-/*
-.stream-card .btn-join-card {
-    margin-top: auto; // Push button to the bottom if card uses flex-direction: column and justify-content: space-between
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
-    font-size: 0.9rem;
-}
-*/
 
 @media (max-width: 768px) {
     .page-container {
-        padding: var(--spacing-unit); /* Reduce padding for smaller screens */
+        padding: var(--spacing-unit); 
     }
 
     .content-section {
-        padding: var(--spacing-unit); /* Reduce padding */
-        margin-bottom: calc(var(--spacing-unit) * 2); /* Ensure consistent spacing */
+        padding: var(--spacing-unit); 
+        margin-bottom: calc(var(--spacing-unit) * 2); 
     }
 
-    /* Specific adjustments for listener page's active streams list items for better touch targets */
-    #activeStreamsList li {
-        padding: calc(var(--spacing-unit) * 1.5); /* Increase padding for easier tapping */
-    }
-
-    /* Optional: Adjust font sizes for readability if needed on smaller screens */
-    /*
-    body {
-        font-size: 0.95rem; 
-    }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.75rem; }
-    .btn, input[type="text"], input[type="email"], input[type="password"] {
-        font-size: 0.95rem;
-    }
-    */
+    /* #activeStreamsList li - old styling, not needed for stream-card grid */
 }
 
 
 /* Page Layout & Content Section Styling */
 .page-container {
-    max-width: 960px; /* Or your preferred max width */
+    max-width: 960px; 
     margin: calc(var(--spacing-unit) * 2) auto;
-    padding: calc(var(--spacing-unit) * 2);
-    /* background-color: var(--color-surface); Optional: if you want a card/panel look for the whole page content area */
-    /* border-radius: calc(var(--spacing-unit) * 0.5); Optional */
-    /* box-shadow: 0 1px 5px rgba(0,0,0,0.05); Optional subtle shadow */
+    padding: 0; 
 }
 
 .content-section {
@@ -541,26 +579,28 @@ select:focus {
     padding: calc(var(--spacing-unit) * 2);
     border: 1px solid var(--color-border);
     border-radius: calc(var(--spacing-unit) * 0.5);
-    background-color: var(--color-surface); /* If page-container is just for centering */
+    background-color: var(--color-surface); 
 }
 
 .content-section:last-child {
     margin-bottom: 0;
 }
 
-.content-section h2 { /* Assuming sections have h2 titles */
-    margin-top: 0; /* Remove top margin if section has padding */
-    margin-bottom: calc(var(--spacing-unit) * 2); /* More space below section titles */
+.content-section h2 { 
+    margin-top: 0; 
+    margin-bottom: calc(var(--spacing-unit) * 2); 
+    color: var(--color-primary); 
 }
 
-/* Listener Page Specifics */
+/* Listener Page Specifics - Old list styling, for reference if needed elsewhere */
+/*
 #activeStreamsList {
     list-style: none;
     padding-left: 0;
 }
 
-#activeStreamsList li {
-    background-color: color-mix(in srgb, var(--color-background) 50%, var(--color-surface)); /* Slightly off-main background */
+#activeStreamsList li { 
+    background-color: var(--color-surface); 
     padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
     margin-bottom: var(--spacing-unit);
     border: 1px solid var(--color-border);
@@ -570,29 +610,33 @@ select:focus {
 }
 
 #activeStreamsList li:hover {
-    background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
-    border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
-    box-shadow: 0 0 5px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    background-color: var(--color-surface-light);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px var(--focus-ring-color);
 }
+*/
 
 /* Broadcaster Page Specifics */
-.user-info { /* For "Logged in as: Guest" */
+.user-info { 
     font-size: 0.9rem;
-    color: var(--color-secondary);
+    color: var(--color-text-secondary);
+    text-align: right; 
+    margin-bottom: var(--spacing-unit); 
 }
 
 /* Current Stream Info Display (Broadcaster Page) */
 #currentStreamInfo {
     padding: var(--spacing-unit);
-    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); /* Very light primary bg */
-    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    background-color: color-mix(in srgb, var(--color-primary) 15%, var(--color-surface)); 
+    border: 1px solid var(--color-primary);
+    color: var(--color-text); /* Ensure text is readable */
     border-radius: calc(var(--spacing-unit) * 0.5);
-    text-align: center; /* Or left, as preferred */
-    margin-top: var(--spacing-unit); /* Ensure it has its own margin if not already from message-feedback */
+    text-align: center; 
+    margin-top: var(--spacing-unit); 
 }
 #currentStreamNameDisplay {
-    color: var(--color-primary); /* Make stream name stand out */
-    font-weight: bold; /* Already strong, but can reinforce */
+    color: var(--color-primary); 
+    font-weight: bold; 
 }
 
 /* Screen-reader only utility class */
@@ -613,62 +657,239 @@ select:focus {
 .join-stream-form,
 .start-stream-form {
     display: flex;
-    align-items: center; /* Align items vertically */
-    gap: var(--spacing-unit); /* Space between input and button */
-    margin-bottom: var(--spacing-unit); /* Space below this form group */
+    align-items: center; 
+    gap: var(--spacing-unit); 
+    margin-bottom: var(--spacing-unit); 
 }
 
 .join-stream-form input[type="text"],
 .start-stream-form input[type="text"] {
-    flex-grow: 1; /* Input field takes available space */
-    margin-bottom: 0; /* Remove default margin from global input style */
+    flex-grow: 1; 
+    margin-bottom: 0; 
 }
 
 .join-stream-form button,
 .start-stream-form button {
-    flex-shrink: 0; /* Prevent button from shrinking */
-    /* width: auto; /* Override full-width if it was set globally for all buttons via .btn */
+    flex-shrink: 0; 
 }
 
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-unit); /* Space below header */
+    margin-bottom: var(--spacing-unit); 
 }
 
 .section-header h2 {
-    margin-bottom: 0; /* Remove default margin from h2 if it's inside flex */
+    margin-bottom: 0; 
 }
 
 /* Responsive adjustments for these new flex layouts if needed */
-@media (max-width: 576px) { /* Example breakpoint, adjust as needed */
+@media (max-width: 576px) { 
     .join-stream-form,
     .start-stream-form {
-        flex-direction: column; /* Stack input and button vertically */
-        align-items: stretch; /* Stretch items to fill width */
+        flex-direction: column; 
+        align-items: stretch; 
     }
 
     .join-stream-form input[type="text"],
     .start-stream-form input[type="text"] {
-        margin-bottom: var(--spacing-unit); /* Add margin back when stacked */
+        margin-bottom: var(--spacing-unit); 
     }
     
     .join-stream-form button,
     .start-stream-form button {
-        width: 100%; /* Make button full width when stacked */
+        width: 100%; 
     }
 
     .section-header {
         flex-direction: column;
-        align-items: flex-start; /* Align items to the start */
+        align-items: flex-start; 
     }
 
     .section-header h2 {
-        margin-bottom: var(--spacing-unit); /* Add space below h2 when stacked */
+        margin-bottom: var(--spacing-unit); 
     }
 
-    .section-header button { /* Ensure button is full width in this stacked layout */
+    .section-header button { 
         width: 100%;
+    }
+}
+
+/* Broadcaster Page New Layout Styles */
+.live-stream-container {
+    display: flex;
+    flex-direction: column; 
+    gap: calc(var(--spacing-unit) * 2);
+    padding: var(--spacing-unit);
+    background-color: var(--color-surface); 
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.stream-display-area {
+    background-color: #000; 
+    color: var(--color-text-secondary); 
+    min-height: 300px; 
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit); 
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.stream-info-area {
+    padding: calc(var(--spacing-unit) * 2); /* Increased padding */
+    background-color: var(--color-surface); 
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    margin-bottom: var(--spacing-unit); 
+    border: 1px solid var(--color-border); 
+}
+
+.stream-info-area h2 {
+    margin-top: 0; 
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    color: var(--color-primary); 
+}
+
+.stream-info-area .start-stream-form {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.stream-info-area #liveIndicator {
+    display: none; 
+    margin-top: calc(var(--spacing-unit) * 1);
+    margin-bottom: calc(var(--spacing-unit) * 1.5); /* Increased bottom margin */
+    text-align: center; 
+}
+
+.live-indicator:not([style*="display: none"]) {
+    display: block !important; 
+    text-align: center; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+
+.stream-info-area #statusMessages {
+    margin-top: calc(var(--spacing-unit) * 1.5);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.stream-info-area #currentStreamInfo {
+    margin-top: calc(var(--spacing-unit) * 1.5);
+}
+
+/* Stream Controls Styling */
+.stream-controls {
+    margin-top: calc(var(--spacing-unit) * 2); 
+    padding-top: calc(var(--spacing-unit) * 1.5);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    gap: calc(var(--spacing-unit) * 1.5); 
+    justify-content: center; 
+}
+
+.btn-control {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary-text);
+    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit); 
+    font-size: 0.9rem; 
+}
+.btn-control:hover {
+    background-color: var(--color-secondary-hover);
+    border-color: var(--color-secondary-hover);
+}
+.btn-control:active {
+    background-color: var(--color-secondary-active);
+    border-color: var(--color-secondary-active);
+}
+.btn-control:disabled {
+    background-color: color-mix(in srgb, var(--color-secondary) 40%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--color-secondary) 40%, var(--color-surface));
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+}
+
+#muteAudioButton.muted {
+    background-color: var(--color-warning);
+    border-color: var(--color-warning);
+    color: var(--color-warning-text);
+}
+#muteAudioButton.muted:hover {
+    background-color: var(--color-warning-hover);
+    border-color: var(--color-warning-hover);
+}
+
+
+.chat-area {
+    background-color: var(--color-surface); 
+    padding: var(--spacing-unit);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    border: 1px solid var(--color-border); 
+}
+
+.chat-area h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-unit);
+    color: var(--color-text-secondary); 
+}
+
+
+/* Responsive Layout for Larger Screens */
+@media (min-width: 768px) {
+    .live-stream-container {
+        flex-direction: row; 
+        align-items: flex-start; 
+    }
+
+    .stream-main-content { 
+        flex: 2; 
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--spacing-unit) * 2); 
+        margin-right: calc(var(--spacing-unit) * 2); 
+    }
+
+    .stream-display-area {
+        min-height: 40vh; 
+        margin-bottom: 0; 
+    }
+
+    .stream-info-area {
+        margin-bottom: 0; 
+        width: 100%; 
+    }
+
+    .chat-area {
+        flex: 1; 
+        height: auto; 
+        /* Example: align with stream display + info height, adjust as needed */
+        max-height: calc(40vh + var(--spacing-unit) * 2 + 200px + var(--spacing-unit) * 4 + var(--spacing-unit) * 2); /* Account for stream-info-area padding */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chat-area .chat-messages-area {
+        flex-grow: 1; 
+        height: 300px; 
+    }
+}
+
+/* Further refinement for very large screens if necessary */
+@media (min-width: 1200px) {
+    .live-stream-container {
+        /* Potentially increase gap or max-width */
+    }
+    .stream-display-area {
+        min-height: 50vh;
+    }
+     .chat-area {
+        max-height: calc(50vh + var(--spacing-unit) * 2 + 200px + var(--spacing-unit) * 4 + var(--spacing-unit) * 2); /* Adjusted for 50vh */
     }
 }
