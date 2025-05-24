@@ -30,9 +30,14 @@
                 <label for="streamName" class="sr-only">Stream Name (Optional):</label> <!-- Screen-reader only label -->
                 <input type="text" id="streamName" placeholder="Enter Stream Name (Optional)">
                 <button id="goLiveButton" class="btn" disabled>Go Live</button>
+                <span id="liveIndicator" class="live-indicator" style="display: none;">LIVE</span>
             </div>
             
             <div id="statusMessages" class="message-feedback" style="margin-top: var(--spacing-unit);">Not connected.</div>
+            
+            <div id="currentStreamInfo" style="display: none; margin-top: var(--spacing-unit);">
+                <p>Streaming as: <strong id="currentStreamNameDisplay"></strong></p>
+            </div>
         </div>
     </div>
 

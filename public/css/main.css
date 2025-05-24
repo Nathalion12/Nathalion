@@ -208,6 +208,27 @@ select:focus {
     font-weight: 500;
 }
 
+/* Live Indicator Styling */
+.live-indicator {
+    display: inline-block; /* Initially hidden by inline style, JS will change to inline-block */
+    background-color: var(--color-danger); /* Red for LIVE */
+    color: white;
+    padding: calc(var(--spacing-unit) * 0.25) calc(var(--spacing-unit) * 1);
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    margin-left: var(--spacing-unit); /* Space it from other elements */
+    vertical-align: middle; /* Align with buttons/text */
+    /* Optional: Subtle pulsing animation */
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
 /* Navigation Bar Styling */
 .navbar {
     background-color: var(--color-primary);
@@ -340,6 +361,83 @@ select:focus {
     }
 }
 
+/* Profile Page Specific Styling */
+.profile-info p {
+    margin-bottom: var(--spacing-unit);
+    font-size: 1.1rem; /* Slightly larger text for profile details */
+}
+.profile-info p strong {
+    color: var(--color-primary); /* Or other distinct color */
+    min-width: 120px; /* Example: align keys for better readability */
+    display: inline-block;
+}
+
+/* Stream Cards Layout and Styling */
+#activeStreamsList.stream-cards-grid { /* Target the div specifically */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive columns */
+    gap: calc(var(--spacing-unit) * 2);
+    padding-left: 0; /* Remove default padding if it was a ul */
+    list-style: none; /* Remove default list style if it was a ul */
+    margin-top: var(--spacing-unit); /* Add some space above the cards grid */
+}
+
+/* Clear any previous li styling if #activeStreamsList was a ul */
+#activeStreamsList > li {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: default;
+}
+#activeStreamsList > li:hover {
+    background: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+
+.stream-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    padding: calc(var(--spacing-unit) * 2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+    display: flex; /* For internal layout of card content */
+    flex-direction: column;
+    /* justify-content: space-between; /* Uncomment if you add elements like a button at the bottom */
+    min-height: 120px; /* Give cards a minimum height */
+}
+
+.stream-card:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.stream-card-name {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-unit);
+    font-weight: 500; /* Consistent with other h tags */
+}
+
+.stream-card-broadcaster {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    margin-bottom: 0; /* Remove margin if it's the last item, or adjust if more content below */
+}
+
+/* If you add a button inside cards later */
+/*
+.stream-card .btn-join-card {
+    margin-top: auto; // Push button to the bottom if card uses flex-direction: column and justify-content: space-between
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    font-size: 0.9rem;
+}
+*/
+
 @media (max-width: 768px) {
     .page-container {
         padding: var(--spacing-unit); /* Reduce padding for smaller screens */
@@ -422,6 +520,20 @@ select:focus {
 .user-info { /* For "Logged in as: Guest" */
     font-size: 0.9rem;
     color: var(--color-secondary);
+}
+
+/* Current Stream Info Display (Broadcaster Page) */
+#currentStreamInfo {
+    padding: var(--spacing-unit);
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); /* Very light primary bg */
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    text-align: center; /* Or left, as preferred */
+    margin-top: var(--spacing-unit); /* Ensure it has its own margin if not already from message-feedback */
+}
+#currentStreamNameDisplay {
+    color: var(--color-primary); /* Make stream name stand out */
+    font-weight: bold; /* Already strong, but can reinforce */
 }
 
 /* Screen-reader only utility class */

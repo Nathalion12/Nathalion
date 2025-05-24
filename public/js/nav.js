@@ -37,8 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Append new items: User Info first, then Logout
             // To ensure they appear on the right, typically we'd append to the end of existing items
             // or insert before specific items if order matters and other items might exist.
-            // For now, just appending should be fine if login/register were last.
+            
+            // Create Profile link
+            const profileLi = document.createElement('li');
+            profileLi.classList.add('nav-item');
+            const profileLink = document.createElement('a');
+            profileLink.classList.add('nav-link');
+            profileLink.href = 'profile.html';
+            profileLink.textContent = 'Profile';
+            profileLi.appendChild(profileLink);
+
+            // Append new items: User Info, then Profile, then Logout
             navLinksUl.appendChild(userInfoLi);
+            navLinksUl.appendChild(profileLi);
             navLinksUl.appendChild(logoutLi);
             
             // Add event listener to logoutButton

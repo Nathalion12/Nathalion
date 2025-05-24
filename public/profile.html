@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beachouse - Your Profile</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="listener.html" class="nav-brand">Beachouse</a>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="listener.html" class="nav-link">Listen</a></li>
+                <li class="nav-item"><a href="broadcaster.html" class="nav-link">Go Live</a></li>
+                <li class="nav-item auth-link-login"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item auth-link-register"><a href="register.html" class="nav-link">Register</a></li>
+                <!-- Profile, Logout link and user info will be added dynamically by nav.js -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="content-section">
+            <h2>Your Profile</h2>
+            <div class="profile-info"> <!-- Added wrapper for easier styling -->
+                <p><strong>Username:</strong> <span id="profileUsername">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="profileEmail">Loading...</span></p>
+                <p><strong>User ID:</strong> <span id="profileUserId">Loading...</span></p> 
+                <!-- Assuming userId is available in the user object stored in localStorage -->
+                <!-- Add more fields if they are stored and relevant, e.g., registration date -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/profile.js" defer></script>
+    <script src="/js/nav.js" defer></script> 
+</body>
+</html>
