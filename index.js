@@ -296,6 +296,54 @@ wss.on('connection', (ws, req) => { // Added req to potentially access original 
         } else {
              ws.send(JSON.stringify({ type: 'error', message: 'Unauthorized to stop this stream.' }));
         }
+      } else if (parsedMessage.type === 'sendChatMessage') {
+        if (!ws.isAuthenticated || !ws.user) {
+          ws.send(JSON.stringify({ type: 'error', message: 'Not authenticated for chat.' }));
+          return;
+        }
+        const messageText = parsedMessage.text;
+        if (!messageText || typeof messageText !== 'string' || messageText.trim().length === 0) {
+          ws.send(JSON.stringify({ type: 'error', message: 'Chat message cannot be empty.' }));
+          return;
+        }
+
+        let streamId;
+        if (ws.isBroadcaster && ws.streamId) {
+          streamId = ws.streamId;
+        } else if (ws.isListener && ws.joinedStreamId) {
+          streamId = ws.joinedStreamId;
+        } else {
+          ws.send(JSON.stringify({ type: 'error', message: 'Not in a stream to chat.' }));
+          return;
+        }
+
+        const stream = activeStreams.get(streamId);
+        if (!stream) {
+          console.error(`Chat error: Stream ${streamId} not found for client ${ws.id} (User: ${ws.user.username}).`);
+          ws.send(JSON.stringify({ type: 'error', message: 'Stream not found for chat.' }));
+          return;
+        }
+
+        const chatMessageToSend = {
+          type: 'newChatMessage',
+          username: ws.user.username,
+          text: messageText.trim(),
+          timestamp: new Date().toISOString()
+        };
+        const messageString = JSON.stringify(chatMessageToSend);
+
+        // Send to broadcaster
+        if (stream.broadcaster && stream.broadcaster.readyState === require('ws').OPEN) {
+          stream.broadcaster.send(messageString);
+        }
+        // Send to all listeners
+        stream.listeners.forEach(listener => {
+          if (listener.readyState === require('ws').OPEN) {
+            listener.send(messageString);
+          }
+        });
+        console.log(`Chat message from ${ws.user.username} relayed to stream ${streamId}.`);
+
       } else {
         console.log(`Received unhandled JSON message type: ${parsedMessage.type} from client ${ws.id}`);
       }

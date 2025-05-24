@@ -208,6 +208,65 @@ select:focus {
     font-weight: 500;
 }
 
+/* Chat Interface Styling */
+.chat-messages-area {
+    height: 250px; /* Updated height */
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+    background-color: color-mix(in srgb, var(--color-background) 70%, var(--color-surface)); 
+    border-radius: calc(var(--spacing-unit) * 0.5);
+}
+
+.chat-message {
+    margin-bottom: calc(var(--spacing-unit) * 0.75);
+    padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit); /* Updated padding */
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    background-color: var(--color-surface);
+    overflow-wrap: break-word; /* Added */
+    line-height: 1.4;
+}
+
+.chat-message .username {
+    font-weight: bold;
+    color: var(--color-primary); 
+    /* margin-right for username can be optional if spacing is handled by timestamp's margin-left or general layout */
+}
+
+.chat-message .timestamp {
+    font-size: 0.8em; /* Updated font-size */
+    color: var(--color-secondary);
+    margin-left: var(--spacing-unit); /* Updated margin-left */
+}
+
+.chat-message .text {
+    /* Main text styling if needed */
+}
+
+.chat-message.own-message {
+    background-color: color-mix(in srgb, var(--color-info) 20%, var(--color-surface)); /* Light info color */
+    /* border-color: var(--color-info); /* Optional: if messages have borders and want to change it */
+}
+.chat-message.own-message .username {
+    color: var(--color-info); /* Match accent for own messages */
+}
+
+.chat-input-form {
+    display: flex;
+    gap: var(--spacing-unit);
+}
+
+.chat-input-form input[type="text"] {
+    flex-grow: 1;
+    margin-bottom: 0; /* Override global input margin if inside flex */
+}
+
+.chat-input-form button {
+    flex-shrink: 0;
+    /* width: auto; /* Ensure it doesn't take full width from auth form styles if .btn is too general */
+}
+
 /* Live Indicator Styling */
 .live-indicator {
     display: inline-block; /* Initially hidden by inline style, JS will change to inline-block */

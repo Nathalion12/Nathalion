@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioPlaybackElement = document.getElementById('audioPlayback');
     const activeStreamsList = document.getElementById('activeStreamsList');
     const refreshStreamsButton = document.getElementById('refreshStreamsButton');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages'); // For later use
 
     let socket;
     let audioContext; 
@@ -77,6 +80,42 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (event.data instanceof Blob) {
                 audioQueue.push(event.data);
                 processAudioQueue();
+            } else if (parsedMessage.type === 'newChatMessage') {
+                if (chatMessages) {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('chat-message');
+
+                    // Check if it's the user's own message (if user info is available)
+                    // Listeners don't "log in" in the same way as broadcasters for this app,
+                    // so 'own-message' styling might be less relevant or based on a temporary session ID if implemented.
+                    // For now, we'll skip 'own-message' for listeners or assume all messages are from others.
+                    // const currentUser = JSON.parse(localStorage.getItem('beachouse_user'));
+                    // if (currentUser && parsedMessage.username === currentUser.username) {
+                    //    messageElement.classList.add('own-message');
+                    // }
+
+                    const timestamp = new Date(parsedMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    const usernameSpan = document.createElement('strong');
+                    usernameSpan.className = 'username';
+                    usernameSpan.textContent = parsedMessage.username;
+
+                    const timestampSpan = document.createElement('span');
+                    timestampSpan.className = 'timestamp';
+                    timestampSpan.textContent = ` [${timestamp}]`;
+
+                    const textSpan = document.createElement('span');
+                    textSpan.className = 'text';
+                    textSpan.textContent = parsedMessage.text;
+
+                    messageElement.appendChild(usernameSpan);
+                    messageElement.appendChild(timestampSpan);
+                    messageElement.appendChild(document.createTextNode(': '));
+                    messageElement.appendChild(textSpan);
+
+                    chatMessages.appendChild(messageElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
             } else {
                 console.warn('Received unknown message type from server:', event.data);
             }
@@ -286,4 +325,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     connectWebSocket();
+
+    // Chat Form Submit Listener
+    if (chatForm) {
+        chatForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const messageText = chatInput.value.trim();
+            if (messageText && socket && socket.readyState === WebSocket.OPEN) {
+                // Server will validate authentication and stream association.
+                // Client assumes if chat is visible, user is authenticated and in a stream.
+                socket.send(JSON.stringify({
+                    type: 'sendChatMessage',
+                    text: messageText
+                }));
+                chatInput.value = ''; // Clear input after sending
+            } else if (!messageText) {
+                // console.warn('Chat message cannot be empty.');
+            } else {
+                console.warn('WebSocket not connected. Cannot send chat message.');
+                updateStatus('Not connected to chat. Please join a stream and ensure you are connected.', true);
+            }
+        });
+    }
 });

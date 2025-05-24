@@ -39,6 +39,17 @@
                 <p>Streaming as: <strong id="currentStreamNameDisplay"></strong></p>
             </div>
         </div>
+
+        <div class="content-section">
+            <h3>Live Chat</h3>
+            <div id="chatMessages" class="chat-messages-area">
+                <!-- Chat messages will appear here -->
+            </div>
+            <form id="chatForm" class="chat-input-form">
+                <input type="text" id="chatInput" placeholder="Say something..." autocomplete="off" required>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
     </div>
 
     <script src="broadcaster.js"></script>
