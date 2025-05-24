@@ -26,12 +26,11 @@
         <div class="content-section">
             <h2>Start Your Live Broadcast</h2> <!-- Changed H1 to H2 -->
             
-            <div> <!-- Added div for better label-input grouping if needed -->
-                <label for="streamName">Stream Name (Optional):</label>
-                <input type="text" id="streamName" placeholder="My Awesome Stream">
+            <div class="start-stream-form">
+                <label for="streamName" class="sr-only">Stream Name (Optional):</label> <!-- Screen-reader only label -->
+                <input type="text" id="streamName" placeholder="Enter Stream Name (Optional)">
+                <button id="goLiveButton" class="btn" disabled>Go Live</button>
             </div>
-            
-            <button id="goLiveButton" class="btn">Go Live</button> <!-- Added .btn class -->
             
             <div id="statusMessages" class="message-feedback" style="margin-top: var(--spacing-unit);">Not connected.</div>
         </div>

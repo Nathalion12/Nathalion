@@ -22,8 +22,10 @@
     </nav>
     <div class="page-container">
         <div class="content-section">
-            <h2>Active Streams</h2>
-            <button id="refreshStreamsButton" class="btn" style="margin-bottom: var(--spacing-unit);">Refresh List</button>
+            <div class="section-header">
+                <h2>Active Streams</h2>
+                <button id="refreshStreamsButton" class="btn" style="margin-bottom: 0;">Refresh List</button> <!-- Adjusted margin -->
+            </div>
             <ul id="activeStreamsList">
                 <li>Loading active streams...</li>
             </ul>
@@ -31,11 +33,11 @@
 
         <div class="content-section">
             <h2>Join a Live Stream by ID</h2>
-            <div> <!-- Added div for better label-input grouping if needed -->
-                <label for="streamIdInput">Stream ID:</label>
+            <div class="join-stream-form"> <!-- Wrapped input and button -->
+                <label for="streamIdInput" class="sr-only">Stream ID:</label> <!-- Screen-reader only label -->
                 <input type="text" id="streamIdInput" placeholder="Enter Stream ID">
+                <button id="joinStreamButton" class="btn" disabled>Join Stream</button>
             </div>
-            <button id="joinStreamButton" class="btn" disabled>Join Stream</button>
         </div>
 
         <div class="content-section">

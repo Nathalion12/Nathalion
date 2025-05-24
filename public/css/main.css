@@ -276,6 +276,99 @@ select:focus {
     cursor: pointer;
 }
 
+/* Responsive Navigation Bar */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .nav-brand {
+        margin-bottom: var(--spacing-unit); /* Space between brand and links when stacked */
+        /* If nav-brand itself contains an image or logo, ensure its size is appropriate */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start; /* Align links to the start of the container */
+        width: 100%; /* Ensure nav-links take full width */
+    }
+
+    .nav-item {
+        margin-left: 0; /* Reset horizontal margin from desktop view */
+        margin-bottom: calc(var(--spacing-unit) * 0.5); /* Vertical spacing between stacked items */
+        width: 100%; /* Make nav-items take full width for consistent look */
+    }
+
+    .nav-link {
+        display: block; /* Make the link area fill the nav-item for easier tapping */
+        padding-top: calc(var(--spacing-unit) * 0.5); /* Adjust padding for vertical layout */
+        padding-bottom: calc(var(--spacing-unit) * 0.5);
+        /* text-align: center; /* Optional: if you prefer centered text in the stacked links */
+    }
+
+    /* Adjust user info and logout button stacking if they are direct children of .nav-links */
+    .nav-user-info { /* If it's a .nav-item this is covered, if separate, style similarly */
+        margin-right: 0; /* Reset right margin */
+        margin-bottom: calc(var(--spacing-unit) * 0.5); /* Space below user info */
+        width: 100%; /* Optional: if it should take full width like other nav items */
+        /* text-align: left; /* Or center, if nav-link text is centered */
+    }
+
+    /* If logoutButton is inside a .nav-item, it's covered. If standalone and needs full width: */
+    /*
+    #logoutButton.nav-link { // Assuming it also has .nav-link class
+        width: 100%;
+        text-align: center; // Or left
+    }
+    */
+}
+
+/* Responsive Auth Container for smaller screens */
+@media (max-width: 576px) {
+    .auth-container {
+        width: 90%; /* Allow it to use more of the screen width */
+        margin-top: calc(var(--spacing-unit) * 2);
+        margin-bottom: calc(var(--spacing-unit) * 2);
+        padding: calc(var(--spacing-unit) * 2); /* Slightly reduce padding */
+        box-shadow: none; /* Optional: remove shadow on very small screens for simplicity */
+    }
+
+    /* Optional: Adjust heading size within auth forms on small screens */
+    .auth-container h2 {
+        font-size: 1.5rem; /* Slightly smaller heading */
+    }
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        padding: var(--spacing-unit); /* Reduce padding for smaller screens */
+    }
+
+    .content-section {
+        padding: var(--spacing-unit); /* Reduce padding */
+        margin-bottom: calc(var(--spacing-unit) * 2); /* Ensure consistent spacing */
+    }
+
+    /* Specific adjustments for listener page's active streams list items for better touch targets */
+    #activeStreamsList li {
+        padding: calc(var(--spacing-unit) * 1.5); /* Increase padding for easier tapping */
+    }
+
+    /* Optional: Adjust font sizes for readability if needed on smaller screens */
+    /*
+    body {
+        font-size: 0.95rem; 
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    .btn, input[type="text"], input[type="email"], input[type="password"] {
+        font-size: 0.95rem;
+    }
+    */
+}
+
+
 /* Page Layout & Content Section Styling */
 .page-container {
     max-width: 960px; /* Or your preferred max width */
@@ -329,4 +422,82 @@ select:focus {
 .user-info { /* For "Logged in as: Guest" */
     font-size: 0.9rem;
     color: var(--color-secondary);
+}
+
+/* Screen-reader only utility class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+
+/* Flexbox/Grid Layouts for specific sections */
+.join-stream-form,
+.start-stream-form {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: var(--spacing-unit); /* Space between input and button */
+    margin-bottom: var(--spacing-unit); /* Space below this form group */
+}
+
+.join-stream-form input[type="text"],
+.start-stream-form input[type="text"] {
+    flex-grow: 1; /* Input field takes available space */
+    margin-bottom: 0; /* Remove default margin from global input style */
+}
+
+.join-stream-form button,
+.start-stream-form button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+    /* width: auto; /* Override full-width if it was set globally for all buttons via .btn */
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-unit); /* Space below header */
+}
+
+.section-header h2 {
+    margin-bottom: 0; /* Remove default margin from h2 if it's inside flex */
+}
+
+/* Responsive adjustments for these new flex layouts if needed */
+@media (max-width: 576px) { /* Example breakpoint, adjust as needed */
+    .join-stream-form,
+    .start-stream-form {
+        flex-direction: column; /* Stack input and button vertically */
+        align-items: stretch; /* Stretch items to fill width */
+    }
+
+    .join-stream-form input[type="text"],
+    .start-stream-form input[type="text"] {
+        margin-bottom: var(--spacing-unit); /* Add margin back when stacked */
+    }
+    
+    .join-stream-form button,
+    .start-stream-form button {
+        width: 100%; /* Make button full width when stacked */
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .section-header h2 {
+        margin-bottom: var(--spacing-unit); /* Add space below h2 when stacked */
+    }
+
+    .section-header button { /* Ensure button is full width in this stacked layout */
+        width: 100%;
+    }
 }
